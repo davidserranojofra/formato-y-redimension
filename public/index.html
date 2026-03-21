@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redimensionador de Imágenes</title>
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<body>
+  <div class="contenedor">
+    <header class="cabecera">
+      <h1>Redimensionador de Imágenes</h1>
+      <p>Convierte y redimensiona múltiples imágenes a la vez</p>
+    </header>
+
+    <main>
+      <form id="formulario" novalidate>
+
+        <!-- Zona de arrastrar y soltar -->
+        <section class="seccion">
+          <h2>1. Selecciona las imágenes</h2>
+          <div id="zonaArrastre" class="zona-arrastre" role="button" tabindex="0" aria-label="Zona de carga de imágenes">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p>Arrastra tus imágenes aquí<br /><span>o haz clic para seleccionarlas</span></p>
+            <p class="formatos-aceptados">JPG · PNG · WebP · AVIF · TIFF · GIF — Máx. 20 MB por archivo</p>
+            <input type="file" id="inputArchivos" accept="image/jpeg,image/png,image/webp,image/avif,image/tiff,image/gif" multiple hidden />
+          </div>
+
+          <!-- Lista de archivos seleccionados -->
+          <ul id="listaArchivos" class="lista-archivos" aria-live="polite"></ul>
+        </section>
+
+        <!-- Opciones de conversión -->
+        <section class="seccion">
+          <h2>2. Configura la conversión</h2>
+          <div class="opciones-grid">
+            <div class="campo">
+              <label for="formato">Formato de salida</label>
+              <select id="formato" name="formato" required>
+                <option value="">-- Selecciona un formato --</option>
+                <option value="jpeg">JPEG</option>
+                <option value="png">PNG</option>
+                <option value="webp">WebP</option>
+                <option value="avif">AVIF</option>
+                <option value="tiff">TIFF</option>
+                <option value="gif">GIF</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tamaños de salida -->
+        <section class="seccion">
+          <h2>3. Define los tamaños de salida</h2>
+          <div id="contenedorTamanios" class="contenedor-tamanios"></div>
+          <button type="button" id="btnAgregarTamanio" class="btn btn-secundario">
+            + Añadir tamaño
+          </button>
+        </section>
+
+        <!-- Botón de procesado -->
+        <section class="seccion seccion-accion">
+          <button type="submit" id="btnProcesar" class="btn btn-primario" disabled>
+            Procesar y descargar
+          </button>
+          <p id="mensajeEstado" class="mensaje-estado" aria-live="assertive"></p>
+        </section>
+
+      </form>
+    </main>
+  </div>
+
+  <!-- Barra de progreso y overlay -->
+  <div id="overlay" class="overlay oculto" aria-hidden="true">
+    <div class="cargando">
+      <div class="spinner"></div>
+      <p>Procesando imágenes…</p>
+    </div>
+  </div>
+
+  <script src="js/app.js" type="module"></script>
+</body>
+</html>

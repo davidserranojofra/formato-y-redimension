@@ -1,0 +1,18 @@
+{
+  "name": "redimensionador-imagenes",
+  "version": "1.0.0",
+  "description": "Conversor y redimensionador de imágenes con interfaz web y API REST",
+  "main": "src/servidor.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/servidor.js",
+    "dev": "node --watch src/servidor.js"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "sharp": "^0.33.4"
+  }
+}
