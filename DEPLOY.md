@@ -46,3 +46,5 @@ Un cron revisa `origin/master` cada 5 minutos y, si detecta cambios, hace `git p
 | `PUERTO` | `3000` | Puerto del servidor HTTP |
 | `TAMANIO_MAXIMO_MB` | `20` | Limite de peso por archivo |
 | `CARPETA_SUBIDAS` | `uploads` | Carpeta temporal de subidas |
+
+<!-- auto-deploy verificado: 2026-09-28T05:42:51Z -->
