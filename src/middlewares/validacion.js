@@ -46,6 +46,20 @@ export function validarParametros(req, res, next) {
     }
   }
 
+  // Validar el nivel de calidad (opcional, por defecto 80)
+  const calidadRaw = req.body.calidad;
+  if (calidadRaw !== undefined && calidadRaw !== '') {
+    const calidad = Number(calidadRaw);
+    if (!Number.isInteger(calidad) || calidad < 1 || calidad > 100) {
+      return res.status(400).json({
+        error: `Calidad inválida: "${calidadRaw}". Debe ser un entero entre 1 y 100.`,
+      });
+    }
+    req.calidadParsed = calidad;
+  } else {
+    req.calidadParsed = 80;
+  }
+
   // Guardar los tamaños ya parseados para el controlador
   req.tamaniosParsed = tamanios.map(Number);
   next();

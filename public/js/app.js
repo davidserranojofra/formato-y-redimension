@@ -5,6 +5,9 @@ const zonaArrastre     = document.getElementById('zonaArrastre');
 const inputArchivos    = document.getElementById('inputArchivos');
 const listaArchivos    = document.getElementById('listaArchivos');
 const selectFormato    = document.getElementById('formato');
+const sliderCalidad    = document.getElementById('calidad');
+const etiquetaCalidad  = document.getElementById('etiquetaCalidad');
+const notaCalidad      = document.getElementById('notaCalidad');
 const contenedorTam    = document.getElementById('contenedorTamanios');
 const btnAgregarTam    = document.getElementById('btnAgregarTamanio');
 const formulario       = document.getElementById('formulario');
@@ -147,7 +150,42 @@ function actualizarEstadoBoton() {
   btnProcesar.disabled = !(hayArchivos && hayFormato && tamaniosValidos);
 }
 
-selectFormato.addEventListener('change', actualizarEstadoBoton);
+selectFormato.addEventListener('change', () => {
+  actualizarEstadoBoton();
+  actualizarNotaCalidad();
+});
+
+// ─── Slider de calidad ───────────────────────────────────────────────────────
+/**
+ * Actualiza la etiqueta numérica, el degradado de la barra y la nota
+ * informativa según el formato seleccionado.
+ */
+function actualizarSliderCalidad() {
+  const valor = sliderCalidad.value;
+  etiquetaCalidad.textContent = valor;
+
+  // Colorear la barra de progreso del slider mediante una variable CSS
+  const porcentaje = ((valor - 1) / 99) * 100;
+  sliderCalidad.style.setProperty('--progreso', `${porcentaje}%`);
+}
+
+function actualizarNotaCalidad() {
+  const fmt = selectFormato.value;
+  if (fmt === 'gif') {
+    notaCalidad.textContent = 'El formato GIF no admite ajuste de calidad.';
+  } else if (fmt === 'png') {
+    notaCalidad.textContent = 'En PNG controla el nivel de compresión (mayor calidad = archivo más grande).';
+  } else if (fmt) {
+    notaCalidad.textContent = 'Mayor calidad = menor compresión = archivo más grande.';
+  } else {
+    notaCalidad.textContent = '';
+  }
+}
+
+sliderCalidad.addEventListener('input', actualizarSliderCalidad);
+
+// Inicializar el estado visual del slider al cargar
+actualizarSliderCalidad();
 
 /**
  * Devuelve los valores numéricos válidos de los inputs de tamaño.
@@ -175,6 +213,7 @@ formulario.addEventListener('submit', async (e) => {
     formData.append('imagenes', archivo);
   }
   formData.append('formato', selectFormato.value);
+  formData.append('calidad', sliderCalidad.value);
   formData.append('tamanios', JSON.stringify(tamanios));
 
   mostrarOverlay(true);

@@ -10,12 +10,13 @@ import { procesarLote } from '../servicios/procesadorImagenes.js';
  */
 export async function procesarImagenes(req, res) {
   const { formato } = req.body;
-  const tamanios = req.tamaniosParsed;
-  const archivos = req.files;
+  const tamanios  = req.tamaniosParsed;
+  const calidad   = req.calidadParsed;
+  const archivos  = req.files;
 
   let resultados;
   try {
-    resultados = await procesarLote(archivos, tamanios, formato);
+    resultados = await procesarLote(archivos, tamanios, formato, calidad);
   } catch (err) {
     return res.status(500).json({ error: `Error inesperado en el procesamiento: ${err.message}` });
   } finally {

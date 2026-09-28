@@ -46,6 +46,28 @@
                 <option value="gif">GIF</option>
               </select>
             </div>
+
+            <div class="campo">
+              <label for="calidad">
+                Calidad / Compresión
+                <span id="etiquetaCalidad" class="etiqueta-calidad">80</span>
+              </label>
+              <div class="contenedor-slider">
+                <span class="slider-extremo">Menor</span>
+                <input
+                  type="range"
+                  id="calidad"
+                  name="calidad"
+                  min="1"
+                  max="100"
+                  value="80"
+                  step="1"
+                  aria-label="Nivel de calidad de 1 a 100"
+                />
+                <span class="slider-extremo">Mayor</span>
+              </div>
+              <p id="notaCalidad" class="nota-calidad"></p>
+            </div>
           </div>
         </section>
 
